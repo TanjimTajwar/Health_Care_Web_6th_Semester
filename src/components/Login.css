@@ -3,8 +3,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background-image: url('../../Images/login_background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   padding: 20px;
+  position: relative;
+}
+
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(30, 60, 114, 0.8) 0%, rgba(42, 82, 152, 0.8) 100%);
+  z-index: 0;
+}
+
+.login-container > * {
+  position: relative;
+  z-index: 1;
 }
 
 .login-card {

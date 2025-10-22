@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './PatientDashboard.css';
 
@@ -59,7 +60,7 @@ const PatientDashboard = () => {
         <div className="dashboard-section">
           <div className="section-header">
             <h2>Upcoming Appointments</h2>
-            <a href="/patient/appointments" className="view-all-link">View All</a>
+            <Link to="/patient/appointments" className="view-all-link">View All</Link>
           </div>
           
           <div className="appointments-list">
@@ -83,9 +84,9 @@ const PatientDashboard = () => {
             ) : (
               <div className="empty-state">
                 <p>No upcoming appointments</p>
-                <a href="/patient/book-appointment" className="btn btn-primary">
+                <Link to="/patient/book-appointment" className="btn btn-primary">
                   Book an Appointment
-                </a>
+                </Link>
               </div>
             )}
           </div>
@@ -94,7 +95,7 @@ const PatientDashboard = () => {
         <div className="dashboard-section">
           <div className="section-header">
             <h2>Recent Medical Reports</h2>
-            <a href="/patient/reports" className="view-all-link">View All</a>
+            <Link to="/patient/reports" className="view-all-link">View All</Link>
           </div>
           
           <div className="reports-list">
@@ -127,23 +128,23 @@ const PatientDashboard = () => {
 
       <div className="dashboard-actions">
         <div className="action-cards">
-          <a href="/patient/book-appointment" className="action-card">
+          <Link to="/patient/book-appointment" className="action-card">
             <div className="action-icon">➕</div>
             <h3>Book Appointment</h3>
             <p>Schedule a new appointment with a doctor</p>
-          </a>
+          </Link>
           
-          <a href="/patient/doctors" className="action-card">
+          <Link to="/patient/doctors" className="action-card">
             <div className="action-icon">👨‍⚕️</div>
             <h3>Find Doctors</h3>
             <p>Browse available doctors and specializations</p>
-          </a>
+          </Link>
           
-          <a href="/patient/reviews" className="action-card">
+          <Link to="/patient/reviews" className="action-card">
             <div className="action-icon">⭐</div>
             <h3>Write Review</h3>
             <p>Share your experience with doctors</p>
-          </a>
+          </Link>
         </div>
       </div>
 

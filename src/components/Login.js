@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
 
@@ -62,7 +62,7 @@ const Login = () => {
         password = 'admin123';
         break;
       case 'doctor':
-        email = 'dr.smith@jobra.com';
+        email = 'dr.rahman@jobra.com';
         password = 'doctor123';
         break;
       case 'patient':
@@ -174,9 +174,9 @@ const Login = () => {
         <div className="login-footer">
           <p>
             Don't have an account?{' '}
-            <a href="/register" className="register-link">
+            <Link to="/register" className="register-link">
               Register here
-            </a>
+            </Link>
           </p>
         </div>
       </div>

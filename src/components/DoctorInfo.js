@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './DoctorInfo.css';
 
@@ -126,9 +127,9 @@ const DoctorInfo = () => {
                 </div>
 
                 <div className="doctor-actions">
-                  <a href="/patient/book-appointment" className="btn btn-primary">
+                  <Link to="/patient/book-appointment" className="btn btn-primary">
                     📅 Book Appointment
-                  </a>
+                  </Link>
                   <button className="btn btn-outline-secondary">
                     📝 View Profile
                   </button>

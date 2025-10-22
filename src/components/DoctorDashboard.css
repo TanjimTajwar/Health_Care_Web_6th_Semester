@@ -2,8 +2,29 @@
   padding: 30px;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #f8f9fa;
+  background-image: url('../../Images/doctor_dashboard_background.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   min-height: 100vh;
+  position: relative;
+}
+
+.doctor-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(248, 249, 250, 0.85);
+  z-index: 0;
+}
+
+.doctor-dashboard > * {
+  position: relative;
+  z-index: 1;
 }
 
 .dashboard-header {

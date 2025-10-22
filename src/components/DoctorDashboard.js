@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './DoctorDashboard.css';
 
@@ -93,7 +94,7 @@ const DoctorDashboard = () => {
         <div className="dashboard-section">
           <div className="section-header">
             <h2>Today's Appointments</h2>
-            <a href="/doctor/appointments" className="view-all-link">View All</a>
+            <Link to="/doctor/appointments" className="view-all-link">View All</Link>
           </div>
           
           <div className="appointments-list">
@@ -125,7 +126,7 @@ const DoctorDashboard = () => {
         <div className="dashboard-section">
           <div className="section-header">
             <h2>Recent Medical Reports</h2>
-            <a href="/doctor/reports" className="view-all-link">View All</a>
+            <Link to="/doctor/reports" className="view-all-link">View All</Link>
           </div>
           
           <div className="reports-list">
@@ -160,7 +161,7 @@ const DoctorDashboard = () => {
         <div className="dashboard-section">
           <div className="section-header">
             <h2>Upcoming Appointments</h2>
-            <a href="/doctor/appointments" className="view-all-link">View All</a>
+            <Link to="/doctor/appointments" className="view-all-link">View All</Link>
           </div>
           
           <div className="appointments-list">
@@ -192,7 +193,7 @@ const DoctorDashboard = () => {
         <div className="dashboard-section">
           <div className="section-header">
             <h2>Recent Reviews</h2>
-            <a href="/doctor/reviews" className="view-all-link">View All</a>
+            <Link to="/doctor/reviews" className="view-all-link">View All</Link>
           </div>
           
           <div className="reviews-list">
@@ -227,23 +228,23 @@ const DoctorDashboard = () => {
 
       <div className="dashboard-actions">
         <div className="action-cards">
-          <a href="/doctor/patients" className="action-card">
+          <Link to="/doctor/patients" className="action-card">
             <div className="action-icon">👥</div>
             <h3>My Patients</h3>
             <p>View and manage your patient information</p>
-          </a>
-          
-          <a href="/doctor/reports" className="action-card">
+          </Link>
+
+          <Link to="/doctor/reports" className="action-card">
             <div className="action-icon">📋</div>
             <h3>Medical Reports</h3>
             <p>Create and review medical reports</p>
-          </a>
-          
-          <a href="/doctor/appointments" className="action-card">
+          </Link>
+
+          <Link to="/doctor/appointments" className="action-card">
             <div className="action-icon">📅</div>
             <h3>Appointments</h3>
             <p>Manage your appointment schedule</p>
-          </a>
+          </Link>
         </div>
       </div>
 

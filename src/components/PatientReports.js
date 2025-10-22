@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import './PatientReports.css';
 
@@ -135,9 +136,9 @@ const PatientReports = () => {
                 : `No reports with status "${filter}" found.`
               }
             </p>
-            <a href="/patient/book-appointment" className="btn btn-primary">
+            <Link to="/patient/book-appointment" className="btn btn-primary">
               Book an Appointment
-            </a>
+            </Link>
           </div>
         )}
       </div>
