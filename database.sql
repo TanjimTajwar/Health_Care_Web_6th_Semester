@@ -8,78 +8,80 @@
 -- =====================================================
 
 -- Create Database
+-- IF NOT EXISTS prevents error if database already exists
 CREATE DATABASE IF NOT EXISTS jobra_healthcare_db;
+-- Switch to the newly created database for subsequent operations
 USE jobra_healthcare_db;
 
 -- =====================================================
 -- 1. USERS TABLE
 -- =====================================================
 CREATE TABLE users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'doctor', 'patient') NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    phone VARCHAR(20),
-    location VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    is_active BOOLEAN DEFAULT TRUE
+    id INT PRIMARY KEY AUTO_INCREMENT, -- Auto-incrementing primary key
+    email VARCHAR(255) UNIQUE NOT NULL, -- Unique email address for login
+    password VARCHAR(255) NOT NULL, -- Hashed password for security
+    role ENUM('admin', 'doctor', 'patient') NOT NULL, -- User role determines access level
+    name VARCHAR(255) NOT NULL, -- Full name of the user
+    phone VARCHAR(20), -- Contact phone number (optional)
+    location VARCHAR(255), -- User's location/address (optional)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Record creation timestamp
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Auto-updating timestamp
+    is_active BOOLEAN DEFAULT TRUE -- Soft delete flag (TRUE = active, FALSE = deleted)
 );
 
 -- =====================================================
 -- 2. DOCTORS TABLE (Extended user information for doctors)
 -- =====================================================
 CREATE TABLE doctors (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    specialization VARCHAR(255) NOT NULL,
-    experience VARCHAR(50),
-    rating DECIMAL(3,2) DEFAULT 0.00,
-    patients_count INT DEFAULT 0,
-    hospital VARCHAR(255),
-    license_number VARCHAR(100),
-    consultation_fee DECIMAL(10,2),
-    available_days JSON,
-    available_times JSON,
-    bio TEXT,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    id INT PRIMARY KEY AUTO_INCREMENT, -- Auto-incrementing primary key
+    user_id INT NOT NULL, -- Foreign key reference to users table
+    specialization VARCHAR(255) NOT NULL, -- Medical specialization (e.g., Cardiology, Neurology)
+    experience VARCHAR(50), -- Years of experience in the field
+    rating DECIMAL(3,2) DEFAULT 0.00, -- Average rating from patients (0.00 to 5.00)
+    patients_count INT DEFAULT 0, -- Number of patients treated
+    hospital VARCHAR(255), -- Associated hospital or clinic
+    license_number VARCHAR(100), -- Medical license number
+    consultation_fee DECIMAL(10,2), -- Fee charged per consultation
+    available_days JSON, -- Days of the week when doctor is available
+    available_times JSON, -- Time slots when doctor is available
+    bio TEXT, -- Doctor's biography and qualifications
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE -- Cascade delete when user is deleted
 );
 
 -- =====================================================
 -- 3. PATIENTS TABLE (Extended user information for patients)
 -- =====================================================
 CREATE TABLE patients (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT NOT NULL,
-    age INT,
-    gender ENUM('Male', 'Female', 'Other'),
-    medical_history TEXT,
-    allergies TEXT,
-    address TEXT,
-    emergency_contact VARCHAR(20),
-    emergency_contact_name VARCHAR(255),
-    blood_type VARCHAR(10),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    id INT PRIMARY KEY AUTO_INCREMENT, -- Auto-incrementing primary key
+    user_id INT NOT NULL, -- Foreign key reference to users table
+    age INT, -- Patient's age
+    gender ENUM('Male', 'Female', 'Other'), -- Patient's gender
+    medical_history TEXT, -- Patient's medical history and conditions
+    allergies TEXT, -- Known allergies and reactions
+    address TEXT, -- Patient's full address
+    emergency_contact VARCHAR(20), -- Emergency contact phone number
+    emergency_contact_name VARCHAR(255), -- Name of emergency contact person
+    blood_type VARCHAR(10), -- Patient's blood type (A+, B-, O+, etc.)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE -- Cascade delete when user is deleted
 );
 
 -- =====================================================
 -- 4. APPOINTMENTS TABLE
 -- =====================================================
 CREATE TABLE appointments (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    patient_id INT NOT NULL,
-    doctor_id INT NOT NULL,
-    appointment_date DATE NOT NULL,
-    appointment_time TIME NOT NULL,
-    status ENUM('pending', 'confirmed', 'cancelled', 'completed') DEFAULT 'pending',
-    reason TEXT,
-    notes TEXT,
-    consultation_fee DECIMAL(10,2),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (doctor_id) REFERENCES users(id) ON DELETE CASCADE
+    id INT PRIMARY KEY AUTO_INCREMENT, -- Auto-incrementing primary key
+    patient_id INT NOT NULL, -- Foreign key reference to patient user
+    doctor_id INT NOT NULL, -- Foreign key reference to doctor user
+    appointment_date DATE NOT NULL, -- Date of the appointment
+    appointment_time TIME NOT NULL, -- Time of the appointment
+    status ENUM('pending', 'confirmed', 'cancelled', 'completed') DEFAULT 'pending', -- Appointment status
+    reason TEXT, -- Reason for the appointment
+    notes TEXT, -- Additional notes about the appointment
+    consultation_fee DECIMAL(10,2), -- Fee for the consultation
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Record creation timestamp
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- Auto-updating timestamp
+    FOREIGN KEY (patient_id) REFERENCES users(id) ON DELETE CASCADE, -- Cascade delete when patient is deleted
+    FOREIGN KEY (doctor_id) REFERENCES users(id) ON DELETE CASCADE -- Cascade delete when doctor is deleted
 );
 
 -- =====================================================
